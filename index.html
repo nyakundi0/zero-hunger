@@ -3,56 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Dashboard</title>
-  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <title>Urban Garden Network Dashboard</title>
+  <!-- Import React and Babel -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <!-- Lucide Icons for Icons (optional for lucide-react compatibility) -->
+  <script src="https://unpkg.com/lucide-react@0.15.0/umd/lucide.min.js" crossorigin></script>
 </head>
-<body>
+<body class="bg-gray-50">
+  <!-- Root Element for React -->
   <div id="root"></div>
 
+  <!-- React Component in JSX -->
   <script type="text/babel">
-    // Your React code here
     const { useState } = React;
+    const { Sprout, GardenSquare, Users, UtensilsCrossed, Leaf, Calendar } = lucide;
 
-    const ProjectDashboard = () => {
-      const [activeMetrics] = useState({
+    function ProjectDashboard() {
+      const activeMetrics = {
         gardens: 12,
         volunteers: 156,
         foodCollected: 2450,
         familiesServed: 89,
         wasteReduced: 40,
         upcomingEvents: 5
-      });
+      };
 
       const metricsCards = [
-        { title: 'Active Gardens', value: activeMetrics.gardens, color: 'text-green-600' },
-        { title: 'Active Volunteers', value: activeMetrics.volunteers, color: 'text-blue-600' },
-        { title: 'Food Collected (lbs)', value: activeMetrics.foodCollected, color: 'text-orange-600' },
-        { title: 'Families Served', value: activeMetrics.familiesServed, color: 'text-purple-600' },
-        { title: 'Waste Reduced (%)', value: activeMetrics.wasteReduced, color: 'text-teal-600' },
-        { title: 'Upcoming Events', value: activeMetrics.upcomingEvents, color: 'text-red-600' }
+        { title: 'Active Gardens', value: activeMetrics.gardens, icon: GardenSquare, color: 'text-green-600' },
+        { title: 'Active Volunteers', value: activeMetrics.volunteers, icon: Users, color: 'text-blue-600' },
+        { title: 'Food Collected (lbs)', value: activeMetrics.foodCollected, icon: UtensilsCrossed, color: 'text-orange-600' },
+        { title: 'Families Served', value: activeMetrics.familiesServed, icon: Users, color: 'text-purple-600' },
+        { title: 'Waste Reduced (%)', value: activeMetrics.wasteReduced, icon: Leaf, color: 'text-teal-600' },
+        { title: 'Upcoming Events', value: activeMetrics.upcomingEvents, icon: Calendar, color: 'text-red-600' }
       ];
 
       return (
-        <div className="min-h-screen bg-gray-50 p-8">
+        <div className="min-h-screen p-8">
           <header className="mb-8">
-            <h1 className="text-4xl font-bold text-gray-900">Urban Garden Network</h1>
+            <div className="flex items-center gap-4 mb-4">
+              <Sprout className="h-10 w-10 text-green-600" />
+              <h1 className="text-4xl font-bold text-gray-900">Urban Garden Network</h1>
+            </div>
             <p className="text-xl text-gray-600">Zero Hunger Initiative Dashboard</p>
           </header>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {metricsCards.map((metric, index) => (
-              <div key={index} className="p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
-                <div className={`text-3xl font-bold ${metric.color}`}>{metric.value}</div>
-                <p className="text-gray-600">{metric.title}</p>
+              <div key={index} className="bg-white rounded-lg shadow-lg p-6 flex items-center transition-shadow hover:shadow-xl">
+                <metric.icon className={`h-12 w-12 ${metric.color} mr-4`} />
+                <div>
+                  <p className="text-gray-600">{metric.title}</p>
+                  <p className="text-3xl font-bold">{metric.value}</p>
+                </div>
               </div>
             ))}
           </div>
+
+          <div className="space-y-4">
+            <div className="bg-white rounded-lg shadow-lg p-4">
+              <h3 className="text-xl font-bold mb-2">Project Overview</h3>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Establish network of urban gardens and small-scale farms</li>
+                <li>Create efficient surplus food redistribution system</li>
+                <li>Reduce local food insecurity by 25% within first year</li>
+                <li>Minimize food waste from local businesses by 40%</li>
+                <li>Provide gardening education and resources</li>
+              </ul>
+            </div>
+          </div>
         </div>
       );
-    };
+    }
 
     ReactDOM.render(<ProjectDashboard />, document.getElementById('root'));
   </script>

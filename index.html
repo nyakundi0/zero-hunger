@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Dashboard</title>
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    // Your React code here
+    const { useState } = React;
+
+    const ProjectDashboard = () => {
+      const [activeMetrics] = useState({
+        gardens: 12,
+        volunteers: 156,
+        foodCollected: 2450,
+        familiesServed: 89,
+        wasteReduced: 40,
+        upcomingEvents: 5
+      });
+
+      const metricsCards = [
+        { title: 'Active Gardens', value: activeMetrics.gardens, color: 'text-green-600' },
+        { title: 'Active Volunteers', value: activeMetrics.volunteers, color: 'text-blue-600' },
+        { title: 'Food Collected (lbs)', value: activeMetrics.foodCollected, color: 'text-orange-600' },
+        { title: 'Families Served', value: activeMetrics.familiesServed, color: 'text-purple-600' },
+        { title: 'Waste Reduced (%)', value: activeMetrics.wasteReduced, color: 'text-teal-600' },
+        { title: 'Upcoming Events', value: activeMetrics.upcomingEvents, color: 'text-red-600' }
+      ];
+
+      return (
+        <div className="min-h-screen bg-gray-50 p-8">
+          <header className="mb-8">
+            <h1 className="text-4xl font-bold text-gray-900">Urban Garden Network</h1>
+            <p className="text-xl text-gray-600">Zero Hunger Initiative Dashboard</p>
+          </header>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {metricsCards.map((metric, index) => (
+              <div key={index} className="p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
+                <div className={`text-3xl font-bold ${metric.color}`}>{metric.value}</div>
+                <p className="text-gray-600">{metric.title}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.render(<ProjectDashboard />, document.getElementById('root'));
+  </script>
+</body>
+</html>
